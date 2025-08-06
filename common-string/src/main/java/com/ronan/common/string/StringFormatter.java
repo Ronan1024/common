@@ -125,6 +125,7 @@ public class StringFormatter {
 //        return formatted.replace("\uE000", "{").replace("\uE001", "}");
 //    }
 
+
     /**
      * 使用命名参数格式化字符串
      *
@@ -132,7 +133,7 @@ public class StringFormatter {
      * @param params   命名参数键值对
      * @return 格式化后的字符串
      */
-    public static String namedFormat(String template, Map<?, ?> params, boolean ignoreNull) {
+    public static String namedFormat(String template, Map<?, ?> params) {
         if (template == null) {
             return null;
         }
@@ -148,13 +149,9 @@ public class StringFormatter {
             String key = matcher.group(1).trim();
             Object value = params.get(key);
             String replacement;
-            if (value == null && ignoreNull) {
-                continue;
-            }
             if (value != null) {
                 replacement = value.toString();
             } else {
-
                 replacement = matcher.group();
             }
 

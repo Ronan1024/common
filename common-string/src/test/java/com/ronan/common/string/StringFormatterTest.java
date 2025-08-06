@@ -2,6 +2,9 @@ package com.ronan.common.string;
 
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @program: common
  * @description:
@@ -18,10 +21,15 @@ public class StringFormatterTest {
         System.out.println(format);
         String str1 = "msg: {{}}";
         String format1 = StringFormatter.format(str1, "=======");
-        System.out.println("format1 -> " + format1);
+        System.out.println("format1 =========> " + format1);
         String advancedFormatStr = "userName: {1}   age: {2}";
         String advancedFormat = StringFormatter.advancedFormat(advancedFormatStr, "", "sixUncle", "18");
-        System.out.println(advancedFormat);
+        System.out.println("advanced =========>" + advancedFormat);
+        String namedFormatStr = "username: {name}";
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", "sixUncle");
+        String namedFormat = StringFormatter.namedFormat(namedFormatStr, map);
+        System.out.println("namedFormat =========> " + namedFormat);
 
     }
 }
