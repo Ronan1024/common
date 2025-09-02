@@ -6,9 +6,12 @@
 
     <groupId>com.ronan.common</groupId>
     <artifactId>common</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <modules>
         <module>common-string</module>
+        <module>common-reflect</module>
+        <module>common-spring</module>
+        <module>common-array</module>
     </modules>
 
     <properties>

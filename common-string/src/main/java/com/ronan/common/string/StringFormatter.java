@@ -76,55 +76,6 @@ public class StringFormatter {
         return placeholders;
     }
 
-//    /**
-//     * 使用命名参数格式化字符串
-//     *
-//     * @param template 包含 {key} 占位符的模板
-//     * @param params   命名参数键值对
-//     * @return 格式化后的字符串
-//     */
-//    public static String namedFormat(String template, Object... params) {
-//        if (template == null) {
-//            return null;
-//        }
-//
-//        if (params.length % 2 != 0) {
-//            throw new IllegalArgumentException("参数必须是键值对形式");
-//        }
-//
-//        // 处理转义的大括号
-//        template = template.replace("{{", "\uE000").replace("}}", "\uE001");
-//
-//        // 创建参数映射
-//        Map<String, Object> paramMap = new HashMap<>();
-//        for (int i = 0; i < params.length; i += 2) {
-//            paramMap.put(params[i].toString(), params[i + 1]);
-//        }
-//
-//        Pattern pattern = Pattern.compile("\\{([^{}]+)}");
-//        Matcher matcher = pattern.matcher(template);
-//
-//        StringBuffer result = new StringBuffer();
-//
-//        while (matcher.find()) {
-//            String key = matcher.group(1).trim();
-//            Object value = paramMap.get(key);
-//
-//            if (value != null) {
-//                matcher.appendReplacement(result, Matcher.quoteReplacement(value.toString()));
-//            } else {
-//                // 未找到参数时保留占位符
-//                matcher.appendReplacement(result, Matcher.quoteReplacement(matcher.group()));
-//            }
-//        }
-//
-//        matcher.appendTail(result);
-//
-//        // 恢复转义的大括号
-//        String formatted = result.toString();
-//        return formatted.replace("\uE000", "{").replace("\uE001", "}");
-//    }
-
 
     /**
      * 使用命名参数格式化字符串
@@ -171,18 +122,12 @@ public class StringFormatter {
      * @return 格式化后的字符串
      */
     public static String advancedFormat(String template, Object... args) {
-        if (template == null) {
+        if (StringUtil.isEmpty(template)) {
             return null;
         }
 
         // 处理转义的大括号
         template = escapeBraces(template);
-
-        // 将参数数组转换为索引映射
-        Map<String, Object> paramMap = new LinkedHashMap<>();
-        for (int i = 0; i < args.length; i++) {
-            paramMap.put(String.valueOf(i), args[i]);
-        }
 
         Pattern pattern = Pattern.compile("\\{(\\w+)(?::([^{}]+))?}");
         Matcher matcher = pattern.matcher(template);
@@ -225,7 +170,6 @@ public class StringFormatter {
                     }
                 }
             }
-
             matcher.appendReplacement(result, Matcher.quoteReplacement(replacement));
         }
 

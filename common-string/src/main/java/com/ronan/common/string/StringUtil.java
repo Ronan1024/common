@@ -6,7 +6,11 @@ package com.ronan.common.string;
  * @author: L.J.Ran
  * @create: 2025/8/5
  */
-public class StringUtils {
+public class StringUtil {
+
+    private StringUtil() {
+        throw new IllegalArgumentException("This is util class.");
+    }
 
     public static boolean isEmpty(String str) {
         return (str != null && !str.isEmpty());
