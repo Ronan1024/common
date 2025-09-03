@@ -1,4 +1,4 @@
-package com.ronan.common.spring;
+package com.ronan.common.spring.core;
 
 import com.ronan.common.array.ArrayUtil;
 import org.aspectj.lang.JoinPoint;
@@ -50,6 +50,7 @@ public class SpringExpressionUtils {
         return result.get(expressionString);
     }
 
+
     /**
      * 从切面中，批量解析 EL 表达式的结果
      *
@@ -90,8 +91,8 @@ public class SpringExpressionUtils {
      * @param expressionString EL 表达式
      * @return 执行界面
      */
-    public static Object parseExpression(String expressionString) {
-        return parseExpression(expressionString, null);
+    public static <T> T parseExpression(String expressionString, Class<T> clazz) {
+        return parseExpression(expressionString, null, clazz);
     }
 
     /**
@@ -101,7 +102,7 @@ public class SpringExpressionUtils {
      * @param variables        变量
      * @return 执行界面
      */
-    public static Object parseExpression(String expressionString, Map<String, Object> variables) {
+    public static <T> T parseExpression(String expressionString, Map<String, Object> variables, Class<T> clazz) {
         if (!StringUtils.hasText(expressionString)) {
             return null;
         }
@@ -111,6 +112,6 @@ public class SpringExpressionUtils {
         if (!CollectionUtils.isEmpty(variables)) {
             context.setVariables(variables);
         }
-        return expression.getValue(context);
+        return expression.getValue(context, clazz);
     }
 }

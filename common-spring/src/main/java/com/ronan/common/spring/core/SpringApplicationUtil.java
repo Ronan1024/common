@@ -1,6 +1,5 @@
-package com.ronan.common.spring;
+package com.ronan.common.spring.core;
 
-import com.sun.xml.internal.ws.util.UtilException;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -27,16 +26,18 @@ public class SpringApplicationUtil implements BeanFactoryPostProcessor, Applicat
 
 
     @Override
+    @SuppressWarnings({"NullableProblems","static"})
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
         SpringApplicationUtil.beanFactory = beanFactory;
     }
 
     @Override
+    @SuppressWarnings({"NullableProblems","static"})
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         SpringApplicationUtil.applicationContext = applicationContext;
     }
 
-
+    @SuppressWarnings("ConstantConditions")
     public static ApplicationContext getApplicationContext() {
         return applicationContext;
     }
@@ -51,13 +52,13 @@ public class SpringApplicationUtil implements BeanFactoryPostProcessor, Applicat
     }
 
 
-    public static ConfigurableListableBeanFactory getConfigurableBeanFactory() throws UtilException {
+    public static ConfigurableListableBeanFactory getConfigurableBeanFactory() throws IllegalArgumentException {
         ConfigurableListableBeanFactory factory;
         if (null != beanFactory) {
             factory = beanFactory;
         } else {
             if (!(applicationContext instanceof ConfigurableApplicationContext)) {
-                throw new UtilException("No ConfigurableListableBeanFactory from context!");
+                throw new IllegalArgumentException("No ConfigurableListableBeanFactory from context!");
             }
 
             factory = ((ConfigurableApplicationContext) applicationContext).getBeanFactory();
@@ -66,6 +67,7 @@ public class SpringApplicationUtil implements BeanFactoryPostProcessor, Applicat
         return factory;
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> T getBean(String name) {
         return (T) getBeanFactory().getBean(name);
     }
@@ -132,11 +134,10 @@ public class SpringApplicationUtil implements BeanFactoryPostProcessor, Applicat
 
     public static void unregisterBean(String beanName) {
         ConfigurableListableBeanFactory factory = getConfigurableBeanFactory();
-        if (factory instanceof DefaultSingletonBeanRegistry) {
-            DefaultSingletonBeanRegistry registry = (DefaultSingletonBeanRegistry) factory;
+        if (factory instanceof DefaultSingletonBeanRegistry registry) {
             registry.destroySingleton(beanName);
         } else {
-            throw new UtilException("Can not unregister bean, the factory is not a DefaultSingletonBeanRegistry!");
+            throw new IllegalArgumentException("Can not unregister bean, the factory is not a DefaultSingletonBeanRegistry!");
         }
     }
 

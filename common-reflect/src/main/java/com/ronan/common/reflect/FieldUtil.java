@@ -25,8 +25,6 @@ public class FieldUtil {
 
     public static Field[] getFields(Class<?> clazz) {
         Objects.requireNonNull(clazz, "Class cannot be null");
-
-
         return FIELDS_CACHE.computeIfAbsent(clazz, e -> getFieldsDirectly(e, true));
     }
 

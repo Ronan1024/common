@@ -12,6 +12,10 @@
         <module>common-reflect</module>
         <module>common-spring</module>
         <module>common-array</module>
+        <module>common-validation</module>
+        <module>common-principal</module>
+        <module>common-utils</module>
+        <module>common-all</module>
     </modules>
 
     <properties>
@@ -21,5 +25,46 @@
     </properties>
 
     <packaging>pom</packaging>
+
+
+
+    <!-- 配置私有仓库的上传信息 -->
+    <distributionManagement>
+        <repository>
+            <id>baoxin</id>
+            <url>http://10.125.123.5:18080/repository/baoxin-hosted/</url>
+        </repository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <!-- 配置源码插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 配置部署插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <repositoryId>baoxin</repositoryId>
+                    <url>http://10.125.123.5:18080/repository/baoxin-hosted/</url>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
