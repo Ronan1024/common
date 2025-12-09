@@ -11,7 +11,7 @@ import java.util.Map;
  * @author: L.J.Ran
  * @create: 2025/8/5
  */
-
+@SuppressWarnings("all")
 public class StringFormatterTest {
 
     @Test

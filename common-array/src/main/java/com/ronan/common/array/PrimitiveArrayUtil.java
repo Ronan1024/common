@@ -8,7 +8,9 @@ package com.ronan.common.array;
  */
 public class PrimitiveArrayUtil {
 
-
+    PrimitiveArrayUtil() {
+        throw new IllegalStateException("Utility class");
+    }
 
     public static boolean isEmpty(long[] array) {
         return array == null || array.length == 0;

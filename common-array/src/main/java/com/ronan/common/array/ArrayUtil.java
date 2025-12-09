@@ -7,6 +7,12 @@ package com.ronan.common.array;
  * @create: 2025/9/2
  */
 public class ArrayUtil extends PrimitiveArrayUtil {
+
+    private ArrayUtil() {
+        super();
+    }
+
+
     public static <T> boolean isEmpty(T[] array) {
         return array == null || array.length == 0;
     }

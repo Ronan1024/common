@@ -11,6 +11,8 @@ import java.util.regex.Pattern;
  * @author: L.J.Ran
  */
 public class StringFormatter {
+    private static final String UE000 = "\uE000";
+    private static final String UE001 = "\uE001";
 
     private StringFormatter() {
         throw new IllegalArgumentException("Util Class..");
@@ -30,7 +32,7 @@ public class StringFormatter {
         }
 
         // 处理转义的大括号
-        template = template.replace("{{", "\uE000").replace("}}", "\uE001");
+        template = template.replace("{{", UE000).replace("}}", UE001);
 
         List<String> placeholders = findPlaceholders(template);
         StringBuilder result = new StringBuilder();
@@ -58,7 +60,7 @@ public class StringFormatter {
 
         // 恢复转义的大括号
         String formatted = result.toString();
-        return formatted.replace("\uE000", "{").replace("\uE001", "}");
+        return formatted.replace(UE000, "{").replace(UE001, "}");
     }
 
     /**
@@ -148,27 +150,7 @@ public class StringFormatter {
                     replacement = matcher.group();
                 }
             } catch (NumberFormatException e) {
-                if (key.isEmpty() && defaultValue != null) {
-                    // 处理空键情况
-                    replacement = defaultValue;
-                } else {
-                    // 在参数数组中查找命名参数
-                    boolean found = false;
-                    for (int i = 0; i < args.length - 1; i += 2) {
-                        if (args[i].toString().equals(key)) {
-                            replacement = args[i + 1].toString();
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found) {
-                        if (defaultValue != null) {
-                            replacement = defaultValue;
-                        } else {
-                            replacement = matcher.group();
-                        }
-                    }
-                }
+                replacement = handlerNumberFormatException(key, defaultValue, replacement, matcher, args);
             }
             matcher.appendReplacement(result, Matcher.quoteReplacement(replacement));
         }
@@ -178,17 +160,45 @@ public class StringFormatter {
     }
 
     /**
+     * 处理数字类型异常
+     *
+     * @param key          占位符
+     * @param defaultValue 默认值
+     */
+    private static String handlerNumberFormatException(String key, String defaultValue, String replacement, Matcher matcher, Object... args) {
+        if (key.isEmpty() && defaultValue != null) {
+            // 处理空键情况
+            replacement = defaultValue;
+        } else {
+            // 在参数数组中查找命名参数
+            boolean found = false;
+            for (int i = 0; i < args.length - 1; i += 2) {
+                if (args[i].toString().equals(key)) {
+                    replacement = args[i + 1].toString();
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                replacement = defaultValue != null ? defaultValue : matcher.group();
+            }
+        }
+
+        return replacement;
+    }
+
+    /**
      * 处理转移的大括号: 将{{ x }} 转为临时标记
      */
     private static String escapeBraces(String template) {
-        return template.replace("{{", "\uE000").replace("}}", "\uE001");
+        return template.replace("{{", UE000).replace("}}", UE001);
     }
 
     /**
      * 恢复转义的大括号：将临时标记恢复为 { x }
      */
     private static String restoreBraces(String formatted) {
-        return formatted.replace("\uE000", "{").replace("\uE001", "}");
+        return formatted.replace(UE000, "{").replace(UE001, "}");
     }
 
 

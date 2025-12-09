@@ -3,7 +3,15 @@ package com.ronan.common.principal.email;
 
 import java.util.regex.Pattern;
 
+/**
+ * @author L.J.Ran
+ */
 public class EmailPrincipal {
+
+    private EmailPrincipal() {
+        throw new IllegalStateException("Utility class");
+    }
+
     /**
      * 邮件，符合RFC 5322规范，正则来自：<a href="http://emailregex.com/">...</a>
      * What is the maximum length of a valid email address? <a href="https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address/44317754">...</a>
