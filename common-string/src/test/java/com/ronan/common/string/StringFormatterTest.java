@@ -1,5 +1,6 @@
 package com.ronan.common.string;
 
+import com.ronan.common.string.text.StringFormatter;
 import org.junit.Test;
 
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.ronan.common.string;
+package com.ronan.common.string.text;
 
 /**
  * @program: common
@@ -13,7 +13,7 @@ public class StringUtil {
     }
 
     public static boolean isEmpty(String str) {
-        return (str != null && !str.isEmpty());
+        return (str == null || str.isEmpty());
     }
 
     public static boolean isEmpty(CharSequence str) {

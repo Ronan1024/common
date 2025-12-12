@@ -6,7 +6,7 @@
 
     <groupId>com.ronan.common</groupId>
     <artifactId>common</artifactId>
-    <version>${revision}</version>
+    <version>1.0.0</version>
     <modules>
         <module>common-string</module>
         <module>common-reflect</module>
@@ -17,6 +17,7 @@
         <module>common-utils</module>
         <module>common-all</module>
         <module>common-enum</module>
+        <module>common-json</module>
     </modules>
 
     <properties>

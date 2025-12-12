@@ -1,4 +1,4 @@
-package com.ronan.common.string;
+package com.ronan.common.string.text;
 
 import java.util.*;
 import java.util.regex.Matcher;

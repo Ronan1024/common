@@ -1,6 +1,6 @@
 package com.ronan.common.utils;
 
-import com.ronan.common.string.StringFormatter;
+import com.ronan.common.string.text.StringFormatter;
 
 import java.util.Arrays;
 import java.util.function.Supplier;

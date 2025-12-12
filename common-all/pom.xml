@@ -44,6 +44,11 @@
                 <artifactId>common-enum</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.ronan.common.json</groupId>
+                <artifactId>common-json</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
