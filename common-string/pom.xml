@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.ronan.common</groupId>
         <artifactId>common</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </parent>
 
     <groupId>com.ronan.common.string</groupId>
@@ -28,7 +28,7 @@
         <dependency>
             <groupId>com.ronan.common</groupId>
             <artifactId>common-array</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
     </dependencies>
 

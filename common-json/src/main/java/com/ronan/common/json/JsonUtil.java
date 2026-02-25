@@ -113,6 +113,26 @@ public class JsonUtil {
         }
     }
 
+    /**
+     * 将json字符串转换为List
+     *
+     * @param content      json字符串
+     * @param valueTypeRef 类型引用
+     * @param <T>          泛型类型
+     */
+    public static <T> List<T> parseList(String content, Class<T> valueTypeRef) {
+        if (content.isEmpty()) {
+            return Collections.emptyList();
+        }
+        try {
+            return getInstance().readValue(content, getInstance().getTypeFactory().constructCollectionType(List.class, valueTypeRef));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+    }
+
+    @Deprecated
     public static <T> List<T> parseArray(String content, Class<T> valueTypeRef) {
         if (content.isEmpty()) {
             return Collections.emptyList();
